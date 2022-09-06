@@ -11,7 +11,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-	    <title>Quotivation - Home</title>
+	    <title>Edit Quote</title>
 	    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/css/style.css">
 	    <script src="/webjars/jquery/jquery.min.js"></script>
@@ -28,7 +28,7 @@
    					<div class="collapse navbar-collapse" id="navbarBasic">
       					<ul class="navbar-nav me-auto mb-2 mb-xl-0 offset-8">
         					<li class="nav-item">
-          						<a class="nav-link active" aria-current="page" href="/home">Home</a>
+          						<a class="nav-link" aria-current="page" href="/home">Home</a>
         					</li>
         					<li class="nav-item dropdown">
           						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,69 +49,43 @@
         			</div>
 				</div>
 			</nav>
-			
 			<div class="row my-4">
-				<h1>Welcome, ${loggedUser.username}!</h1>
-			</div>
-						
-			<div class="d-flex flex-row mb-4 p-3 justify-content-center align-items-center rounded-pill" style="background-color: #CFD4C5;">
-				<div class="col-3">
-					<h3>~ Daily Quote ~</h3>
-				</div>
-				<div class="col-6 col-offset-3">
-					<figure>
-						<blockquote class="blockquote">
-							<p><i>
-								${dailyQuote.text}
-							</i></p>
-						</blockquote>
-						<figcaption class="blockquote-footer">
-							${dailyQuote.author}
-						</figcaption>
-					</figure>
-				</div>
+				<h1>Edit Quote</h1>
 			</div>
 			
-			
-			<!-- still need to add functionality to this -->
-			<c:if test="${dailyAddable.equals('yes')}">
-				<div class="d-flex flex-row mb-4 justify-content-center">
-					<form action="/inspiration/add" method="POST">
-						<input type="hidden" name="_method" value="put">
-						<input type="hidden" name="id" value="${dailyQuote.id}">
-						<button type="submit" class="btn btn-success">Add this quote to your collection?</button>
-					</form>
-				</div>
-			</c:if>
-			
-			<div class="d-flex flex-row p-4">		
-				<div class="speech-bubble d-flex">
-					<div class="align-self-center h-75 my-3 mx-3">
-						<figure>
-							<blockquote class="blockquote">
-								<p><i>
-									${randomQuote.text}
-								</i></p>
-							</blockquote>
-							<figcaption class="blockquote-footer">
-								${randomQuote.author}
-							</figcaption>
-						</figure>
+			<div class="w-50">
+				<form:form action="/inspiration/edit/${quote.id}" method="POST" modelAttribute="quote">
+					<input type="hidden" name="_method" value="put">
+					<div class="row mb-3">
+						<form:errors path="text" class="text-danger"/>
+						<form:errors path="author" class="text-danger"/>
 					</div>
-					<c:if test="${addable.equals('yes')}">
-						<div class="align-self-start me-3 mt-2">
-							<form action="/inspiration/addRandom" method="POST">
-								<input type="hidden" name="_method" value="put">
-								<button type="submit" class="btn btn-close" style="transform: rotate(45deg);"></button>
-							</form>
+					
+					<div class="row mb-3">
+						<form:label class="col-sm-2 col-form-label" path="text">Quote:</form:label>
+						<div class="col-sm-10">
+							<form:textarea path="text" class="form-control"/>
 						</div>
-					</c:if>
-				</div>
-				<div class="col-3 offset-1 d-flex align-items-center">
-					<a href="/inspiration/random">
-						<button class="btn btn-secondary">Generate a new random quote!</button>
-					</a>
-				</div>
+					</div>
+					
+					<div class="row mb-3">
+						<form:label class="col-sm-2 col-form-label" path="author">Author:</form:label>
+						<div class="col-sm-10">
+							<form:input type="text" path="author" class="form-control"/>
+						</div>
+					</div>
+					
+					<div class="d-flex flex-row my-4 justify-content-end">
+						<button type="submit" class="btn btn-primary">Update Quote</button>
+					</div>
+				</form:form>
+				
+				<form action="/inspiration/delete/${quote.id}" method="POST">
+					<input type="hidden" name="_method" value="delete">
+					<div class="d-flex flex-row mt-5 justify-content-start">
+						<button type="submit" class="btn btn-danger">Delete Quote?</button> 
+					</div>
+				</form>
 			</div>
 		</div>
 	</body>

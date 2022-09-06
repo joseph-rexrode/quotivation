@@ -11,7 +11,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-	    <title>My Inspiration</title>
+	    <title>${otherUser.username}'s Inspiration</title>
 	    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/css/style.css">
 	    <script src="/webjars/jquery/jquery.min.js"></script>
@@ -31,7 +31,7 @@
 	          					<a class="nav-link" aria-current="page" href="/home">Home</a>
 	        				</li>
 	       					<li class="nav-item dropdown">
-	         					<a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	         					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            					Inspiration
 	          					</a>
 	          					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -40,7 +40,7 @@
 	         					</ul>
 	       					</li>
 	        				<li class="nav-item">
-	        					<a class="nav-link" href="/others">Others</a>
+	        					<a class="nav-link active" href="/others">Others</a>
 	        				</li>
 	        				<li class="nav-item">
 	        					<a class="nav-link" href="/logout">Logout</a>
@@ -51,7 +51,7 @@
 			</nav>
 			
 			<div class="row my-4">
-				<h1>My Inspiration</h1>
+				<h1>${otherUser.username}'s Inspiration</h1>
 			</div>
 			
 			
@@ -59,13 +59,13 @@
   				<div class="carousel-inner">
   					<div class="carousel-item active">
   						<div class="w-100 p-5 d-flex justify-content-center" style="background-color: #EFB9CB;">
-  							<h3>My Quotes :)</h3>
+  							<h3>${otherUser.username}'s Quotes :)</h3>
   						</div>
   					</div>
   					<c:forEach var="quote" items="${quotes}">
   						<div class="carousel-item">
   							<div class="w-100 d-flex p-5 justify-content-evenly align-items-center" style="background-color: #EFB9CB;">
-								<figure class="px-5 py-3 w-50 border border-2 border-dark rounded-pill">
+								<figure class="px-5 py-3 border border-2 w-50 border-dark rounded-pill">
 								  	<blockquote class="blockquote">
 								   	 	<p><c:out value="${quote.text}"/></p>
 								  	</blockquote>
@@ -73,7 +73,8 @@
 								    	<c:out value="${quote.author}"/>
 								  	</figcaption>
 								</figure>
-								<c:if test="${quote.creator.id == user.id}">
+								
+								<c:if test="${quote.creator.id == loggedUser.id}">
 									<p>
 										<a href="/inspiration/edit/${quote.id}">
 											<button class="btn btn-secondary">
@@ -81,6 +82,21 @@
 											</button>
 										</a>
 									</p>
+								</c:if>
+								
+								<c:set var="count" value="0" scope="page"></c:set>
+								<c:forEach var="quoteUser" items="${quote.users}">
+									<c:if test="${quoteUser.id == loggedUser.id}">
+										<c:set var="count" value="${count + 1}" scope="page"/>
+									</c:if>
+								</c:forEach>
+								
+								<c:if test="${count == 0}">
+									<form action="/inspiration/add" method="POST">
+										<input type="hidden" name="_method" value="put">
+										<input type="hidden" name="id" value="${quote.id}">
+										<button type="submit" class="btn btn-primary">Add to your collection?</button>
+									</form>
 								</c:if>
 							</div>
   						</div>

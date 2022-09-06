@@ -11,7 +11,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-	    <title>Quotivation - Home</title>
+	    <title>Other Quotivators!</title>
 	    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/css/style.css">
 	    <script src="/webjars/jquery/jquery.min.js"></script>
@@ -28,7 +28,7 @@
    					<div class="collapse navbar-collapse" id="navbarBasic">
       					<ul class="navbar-nav me-auto mb-2 mb-xl-0 offset-8">
         					<li class="nav-item">
-          						<a class="nav-link active" aria-current="page" href="/home">Home</a>
+          						<a class="nav-link" aria-current="page" href="/home">Home</a>
         					</li>
         					<li class="nav-item dropdown">
           						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,7 +40,7 @@
           						</ul>
         					</li>
         					<li class="nav-item">
-        						<a class="nav-link" href="/others">Others</a>
+        						<a class="nav-link active" href="/others">Others</a>
         					</li>
         					<li class="nav-item">
         						<a class="nav-link" href="/logout">Logout</a>
@@ -49,69 +49,27 @@
         			</div>
 				</div>
 			</nav>
-			
 			<div class="row my-4">
-				<h1>Welcome, ${loggedUser.username}!</h1>
-			</div>
-						
-			<div class="d-flex flex-row mb-4 p-3 justify-content-center align-items-center rounded-pill" style="background-color: #CFD4C5;">
-				<div class="col-3">
-					<h3>~ Daily Quote ~</h3>
-				</div>
-				<div class="col-6 col-offset-3">
-					<figure>
-						<blockquote class="blockquote">
-							<p><i>
-								${dailyQuote.text}
-							</i></p>
-						</blockquote>
-						<figcaption class="blockquote-footer">
-							${dailyQuote.author}
-						</figcaption>
-					</figure>
-				</div>
+				<h1>Other Quotivators!</h1>
 			</div>
 			
-			
-			<!-- still need to add functionality to this -->
-			<c:if test="${dailyAddable.equals('yes')}">
-				<div class="d-flex flex-row mb-4 justify-content-center">
-					<form action="/inspiration/add" method="POST">
-						<input type="hidden" name="_method" value="put">
-						<input type="hidden" name="id" value="${dailyQuote.id}">
-						<button type="submit" class="btn btn-success">Add this quote to your collection?</button>
-					</form>
-				</div>
-			</c:if>
-			
-			<div class="d-flex flex-row p-4">		
-				<div class="speech-bubble d-flex">
-					<div class="align-self-center h-75 my-3 mx-3">
-						<figure>
-							<blockquote class="blockquote">
-								<p><i>
-									${randomQuote.text}
-								</i></p>
-							</blockquote>
-							<figcaption class="blockquote-footer">
-								${randomQuote.author}
-							</figcaption>
-						</figure>
+			<div class="row row-cols-1 row-cols-sm-3 g-3">
+				<c:forEach var="user" items="${otherUsers}">
+	  				<div class="col">
+	    				<div class="card" style="background-color: #EFB9CB;">
+					      	<div class="card-body">
+					        	<h5 class="card-title">${user.username}</h5>
+					        	<p class="card-text">
+					        		<a href="/inspiration/others/${user.id}">
+					        			<button class="btn btn-secondary">
+							        		See ${user.username}'s Inspiration!
+					        			</button>
+					        		</a>
+					        	</p>
+							</div>
+					    </div>
 					</div>
-					<c:if test="${addable.equals('yes')}">
-						<div class="align-self-start me-3 mt-2">
-							<form action="/inspiration/addRandom" method="POST">
-								<input type="hidden" name="_method" value="put">
-								<button type="submit" class="btn btn-close" style="transform: rotate(45deg);"></button>
-							</form>
-						</div>
-					</c:if>
-				</div>
-				<div class="col-3 offset-1 d-flex align-items-center">
-					<a href="/inspiration/random">
-						<button class="btn btn-secondary">Generate a new random quote!</button>
-					</a>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</body>
