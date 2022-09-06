@@ -1,5 +1,6 @@
 package com.josephrexrode.quotivationproject.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -59,5 +60,16 @@ public class UserService {
 	
 	public User findById(Long id) {
 		return uRepo.findById(id).orElse(null);
+	}
+	
+	public Object getRandomApiQuote(List<Object> quotes) {
+		int listLength = quotes.size();
+		int randomIndex = (int) Math.floor(Math.random() * (listLength - 1));
+		
+		return quotes.get(randomIndex);
+	}
+	
+	public List<User> allOtherUsers(Long id) {
+		return uRepo.findAllByIdNot(id);
 	}
 }

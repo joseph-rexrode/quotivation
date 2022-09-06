@@ -1,9 +1,17 @@
 package com.josephrexrode.quotivationproject.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
@@ -36,6 +44,17 @@ public class User {
 	@NotBlank(message = "Confirm password is required!")
 	@Size(min = 12, max = 256, message = "Confirm password does not meet length requirements.")
 	private String confirm;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "users_quotes",
+			joinColumns = @JoinColumn(name = "users_id"),
+			inverseJoinColumns = @JoinColumn(name = "quotes_id")
+			)
+	private List<Quote> quotes;
+	
+	@OneToMany(mappedBy = "creator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Quote> createdQuotes;
 	
 	public User() {}
 
@@ -77,5 +96,21 @@ public class User {
 
 	public void setConfirm(String confirm) {
 		this.confirm = confirm;
+	}
+
+	public List<Quote> getQuotes() {
+		return quotes;
+	}
+
+	public void setQuotes(List<Quote> quotes) {
+		this.quotes = quotes;
+	}
+
+	public List<Quote> getCreatedQuotes() {
+		return createdQuotes;
+	}
+
+	public void setCreatedQuotes(List<Quote> createdQuotes) {
+		this.createdQuotes = createdQuotes;
 	}
 }
