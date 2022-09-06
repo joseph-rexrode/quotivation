@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+
+.navbar {
+	background-color: #CFD4C5;
+}
+
+.speech-bubble {
+	position: relative;
+	background: #EFB9CB;
+	border-radius: .4em;
+	width: 65%;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 28px solid transparent;
+	border-left-color: #EFB9CB;
+	border-right: 0;
+	margin-top: -28px;
+	margin-right: -28px;
+}
