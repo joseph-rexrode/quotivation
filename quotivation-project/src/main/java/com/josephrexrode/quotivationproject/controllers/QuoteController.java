@@ -106,9 +106,6 @@ public class QuoteController {
 		Quote q = qServ.findById(id);
 		User u = (User) session.getAttribute("loggedUser");
 		
-		// add section here that redirects to home page if user didn't create the quote
-		// to protect against manual GET requests
-		
 		if (q.getCreator().getId() != u.getId()) {
 			return "redirect:/inspiration";
 		}
