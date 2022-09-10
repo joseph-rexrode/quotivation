@@ -51,7 +51,7 @@
 			</nav>
 			
 			<div class="row my-4">
-				<h1>Create a Quote</h1>
+				<h1>Get Quotivated!</h1>
 			</div>
 			
 			

@@ -54,7 +54,8 @@
 				<h1>My Inspiration</h1>
 			</div>
 			
-			
+			<p>Do we have the daily quote: ${haveDaily}</p>
+						
 			<div id="carouselWithControls" class="carousel slide" data-bs-ride="carousel">
   				<div class="carousel-inner">
   					<div class="carousel-item active">

@@ -68,7 +68,7 @@ public class UserController {
 		
 		session.setAttribute("loggedUser", user);
 		
-		return "redirect:/callDaily";
+		return "redirect:/home";
 	}
 	
 	//// LOGIN ////
@@ -89,7 +89,7 @@ public class UserController {
 		
 		session.setAttribute("loggedUser", user);
 		
-		return "redirect:/callDaily";
+		return "redirect:/home";
 	}
 	
 	//// HOME PAGE ////
@@ -127,6 +127,10 @@ public class UserController {
 			return "redirect:/inspiration/random";
 		}
 		
+		if (!qServ.checkDaily()) {
+			return "redirect:/callDaily";
+		}
+		
 		Quote dailyQuote = qServ.dailyQuote();
 		
 		if (qServ.quoteInUserCollection(u, dailyQuote.getId())) {
@@ -153,16 +157,12 @@ public class UserController {
 	
 	@GetMapping("/callDaily")
 	public String callDaily() throws JsonMappingException, JsonProcessingException {
-		rServ.retrieveQuotes(rServ.getQuotesPlainJSON("https://zenquotes.io/api/today"));
+		rServ.retrieveDailyQuote(rServ.getQuotesPlainJSON("https://zenquotes.io/api/today"));
 		
 		return "redirect:/home";
 	}
 	
-	//// FRIENDS SECTION ////
-	
-	// NOTE: not sure if I want to follow through with this section,
-	// may convert it to "others" section since that would be easier to 
-	// implement with current time crunch
+	//// OTHERS SECTION ////
 	
 	@GetMapping("/others")
 	public String others(

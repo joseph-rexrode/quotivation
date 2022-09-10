@@ -1,5 +1,6 @@
 package com.josephrexrode.quotivationproject.models;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,8 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "quotes")
@@ -31,6 +35,15 @@ public class Quote{
 	
 	@Column(columnDefinition = "boolean default false")
 	private Boolean dailyQuote = false;
+	
+	@Column(updatable = false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date createdAt;
+	
+	@PrePersist
+	public void createdOn() {
+		this.createdAt = new Date();
+	}
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
@@ -97,5 +110,9 @@ public class Quote{
 
 	public void setCreator(User creator) {
 		this.creator = creator;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 }

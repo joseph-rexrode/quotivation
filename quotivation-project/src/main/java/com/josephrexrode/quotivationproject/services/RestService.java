@@ -46,5 +46,18 @@ public class RestService {
 			
 			qServ.create(quote.getQ(), quote.getA());
 		}
-	}	
+	}
+	
+	public void retrieveDailyQuote(String url) throws JsonMappingException, JsonProcessingException {
+		String quotesJson = url;
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		List<ApiQuote> quotes = Arrays.asList(mapper.readValue(quotesJson, ApiQuote[].class));
+		
+		ApiQuote quote = quotes.get(0);
+		
+		qServ.create(quote.getQ(), quote.getA(), true);
+		
+	}
 }

@@ -52,6 +52,10 @@ public class QuoteController {
 		
 		// finds all quotes in user collection
 		List<Quote> quotes = qServ.findByUser(u);
+		
+		boolean haveDailyQuote = qServ.checkDaily();
+		
+		model.addAttribute("haveDaily", haveDailyQuote);
 		model.addAttribute("quotes", quotes);
 		model.addAttribute("user", u);
 		

@@ -1,7 +1,10 @@
 package com.josephrexrode.quotivationproject.services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,12 @@ public class QuoteService {
 	
 	public Quote create(String text, String author) {
 		Quote quote = new Quote(text, author);
+		return qRepo.save(quote);
+	}
+	
+	public Quote create(String text, String author, boolean isDaily) {
+		Quote quote = new Quote(text, author);
+		quote.setDailyQuote(isDaily);
 		return qRepo.save(quote);
 	}
 	
@@ -93,5 +102,41 @@ public class QuoteService {
 	
 	public Quote dailyQuote() {
 		return qRepo.findByDailyQuoteIs(true);
+	}
+	
+	public boolean checkDaily() {
+		// get only quote that is labelled as daily
+		List<Quote> allQuotes = findAll();
+		
+		Calendar today = Calendar.getInstance();
+		today.setTimeZone(TimeZone.getTimeZone("UTC"));
+		
+		for (var i = 0; i < allQuotes.size(); i++) {
+			if (allQuotes.get(i).getDailyQuote() == true) {
+				if (getDayCreated(allQuotes.get(i)) != today.get(6)) {
+					// if it's not daily quote anymore, switch to false
+					allQuotes.get(i).setDailyQuote(false);
+					qRepo.save(allQuotes.get(i));
+					return false;
+				}
+				else {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public int getDayCreated(Quote q) {
+		if (q.getCreatedAt() == null) {
+			return 0;
+		}
+		Date dateCreated = q.getCreatedAt();
+		
+		Calendar day = Calendar.getInstance();
+		day.setTimeZone(TimeZone.getTimeZone("UTC"));
+		day.setTime(dateCreated);
+		
+		return day.get(6);
 	}
 }
