@@ -85,7 +85,7 @@
 			</c:if>
 			
 			<div class="d-flex flex-row p-4">		
-				<div class="speech-bubble d-flex">
+				<div class="speech-bubble d-flex shadow">
 					<div class="align-self-center h-75 my-3 mx-3">
 						<figure>
 							<blockquote class="blockquote">

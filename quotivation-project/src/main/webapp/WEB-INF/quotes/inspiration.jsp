@@ -53,19 +53,17 @@
 			<div class="row my-4">
 				<h1>My Inspiration</h1>
 			</div>
-			
-			<p>Do we have the daily quote: ${haveDaily}</p>
-						
+									
 			<div id="carouselWithControls" class="carousel slide" data-bs-ride="carousel">
   				<div class="carousel-inner">
   					<div class="carousel-item active">
-  						<div class="w-100 p-5 d-flex justify-content-center" style="background-color: #EFB9CB;">
-  							<h3>My Quotes :)</h3>
+  						<div class="w-100 p-5 d-flex justify-content-center align-items-center" style="background-color: #EFB9CB; height: 40vh;">
+  							<h2>My Quotes :)</h2>
   						</div>
   					</div>
   					<c:forEach var="quote" items="${quotes}">
   						<div class="carousel-item">
-  							<div class="w-100 d-flex p-5 justify-content-evenly align-items-center" style="background-color: #EFB9CB;">
+  							<div class="w-100 d-flex p-5 justify-content-evenly align-items-center" style="background-color: #EFB9CB; height: 40vh;">
 								<figure class="px-5 py-3 w-50 border border-2 border-dark rounded-pill">
 								  	<blockquote class="blockquote">
 								   	 	<p><c:out value="${quote.text}"/></p>
@@ -83,6 +81,10 @@
 										</a>
 									</p>
 								</c:if>
+								<form action="/inspiration/remove/${quote.id}" method="POST">
+									<input type="hidden" name="_method" value="put">
+									<p><button class="btn btn-danger" type="submit">Remove Quote?</button></p>
+								</form>
 							</div>
   						</div>
   					</c:forEach>
@@ -96,6 +98,8 @@
 				    <span class="visually-hidden">Next</span>
 				  </a>
 			</div>
+			
+			<div class="fixed-bottom" id="polygon2"></div>
 		</div>
 	</body>
 </html>

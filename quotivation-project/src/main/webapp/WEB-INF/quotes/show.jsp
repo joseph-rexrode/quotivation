@@ -58,13 +58,13 @@
 			<div id="carouselWithControls" class="carousel slide" data-bs-ride="carousel">
   				<div class="carousel-inner">
   					<div class="carousel-item active">
-  						<div class="w-100 p-5 d-flex justify-content-center" style="background-color: #EFB9CB;">
-  							<h3>${otherUser.username}'s Quotes :)</h3>
+  						<div class="w-100 p-5 d-flex justify-content-center align-items-center" style="background-color: #EFB9CB; height: 40vh;">
+  							<h2>${otherUser.username}'s Quotes :)</h2>
   						</div>
   					</div>
   					<c:forEach var="quote" items="${quotes}">
   						<div class="carousel-item">
-  							<div class="w-100 d-flex p-5 justify-content-evenly align-items-center" style="background-color: #EFB9CB;">
+  							<div class="w-100 d-flex p-5 justify-content-evenly align-items-center" style="background-color: #EFB9CB; height: 40vh;">
 								<figure class="px-5 py-3 border border-2 w-50 border-dark rounded-pill">
 								  	<blockquote class="blockquote">
 								   	 	<p><c:out value="${quote.text}"/></p>
@@ -111,6 +111,7 @@
 				    <span class="visually-hidden">Next</span>
 				  </a>
 			</div>
+			<div class="fixed-bottom" id="polygon2"></div>
 		</div>
 	</body>
 </html>

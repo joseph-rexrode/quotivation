@@ -52,10 +52,7 @@ public class QuoteController {
 		
 		// finds all quotes in user collection
 		List<Quote> quotes = qServ.findByUser(u);
-		
-		boolean haveDailyQuote = qServ.checkDaily();
-		
-		model.addAttribute("haveDaily", haveDailyQuote);
+				
 		model.addAttribute("quotes", quotes);
 		model.addAttribute("user", u);
 		
@@ -150,11 +147,18 @@ public class QuoteController {
 			return "redirect:/";
 		}
 		
-		Quote randQ = qServ.randomQuote();
 		
-		session.setAttribute("randomQuote", randQ);
+		if (qServ.randomQuote() == null) {
+			return "redirect:/callapi";
+		}
 		
-		return "redirect:/home";
+		else {			
+			Quote randQ = qServ.randomQuote();
+			
+			session.setAttribute("randomQuote", randQ);
+			return "redirect:/home";
+		}
+		
 	}
 	
 	//// ADDS RANDOM QUOTE TO USER COLLECTION ////
@@ -168,6 +172,19 @@ public class QuoteController {
 		qServ.addToCollection(quote, u);
 		
 		return "redirect:/home";
+	}
+	
+	@PutMapping("/remove/{quoteId}")
+	public String removeQuote(
+			@PathVariable("quoteId") Long id,
+			HttpSession session) {
+		
+		Quote quote = qServ.findById(id);
+		User u = (User) session.getAttribute("loggedUser");
+		
+		qServ.removeFromCollection(quote, u);
+		
+		return "redirect:/inspiration";
 	}
 	
 	//// GO TO SPECIFIC OTHER PERSON'S INSPIRATION PAGE ////

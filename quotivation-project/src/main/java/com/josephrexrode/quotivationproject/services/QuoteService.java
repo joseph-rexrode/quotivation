@@ -74,6 +74,14 @@ public class QuoteService {
 		return qRepo.save(q);
 	}
 	
+	public Quote removeFromCollection(Quote q, User u) {
+		List<User> usersWithQuote = uRepo.findAllByQuotes(q);
+		usersWithQuote.removeIf(e -> (e.getId() == u.getId()));
+		q.setUsers(usersWithQuote);
+		
+		return qRepo.save(q);
+	}
+	
 	public String destroy(Long id) {
 		qRepo.deleteById(id);
 		return "This quote has been deleted";
@@ -85,7 +93,11 @@ public class QuoteService {
 	public Quote randomQuote() {
 		List<Quote> allQuotes = findAll();
 		
-		int randIndex = (int) Math.round(Math.random()*allQuotes.size());
+		if (allQuotes.size() == 0) {
+			return null;
+		}
+		
+		int randIndex = (int) Math.floor(Math.random()*allQuotes.size());
 		
 		return allQuotes.get(randIndex);
 	}

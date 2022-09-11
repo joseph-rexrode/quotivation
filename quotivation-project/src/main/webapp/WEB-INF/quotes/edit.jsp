@@ -87,6 +87,8 @@
 					</div>
 				</form>
 			</div>
+			
+			<div class="fixed-bottom" id="polygon"></div>
 		</div>
 	</body>
 </html>

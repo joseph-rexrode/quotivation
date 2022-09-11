@@ -112,8 +112,7 @@ public class UserController {
 		if (session.getAttribute("randomQuote") != null) {
 			
 			Quote randomQuote = (Quote) session.getAttribute("randomQuote");
-			model.addAttribute("randomQuote", randomQuote);
-			
+			model.addAttribute("randomQuote", randomQuote);				
 			// add an attribute to determine whether the add button displays
 			if (qServ.quoteInUserCollection(u, randomQuote.getId())) {
 				model.addAttribute("addable", "no");
@@ -149,10 +148,12 @@ public class UserController {
 	//// CALLS API ////
 	
 	@GetMapping("/callapi")
-	public void callApi() throws JsonMappingException, JsonProcessingException {
+	public String callApi() throws JsonMappingException, JsonProcessingException {
 		// returns 50 random quotes from the API's database
 		// and converts them to my Quote class
 		rServ.retrieveQuotes(rServ.getQuotesPlainJSON("https://zenquotes.io/api/quotes/"));
+		
+		return "redirect:/home";
 	}
 	
 	@GetMapping("/callDaily")

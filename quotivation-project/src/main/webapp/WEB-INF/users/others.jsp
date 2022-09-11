@@ -56,7 +56,7 @@
 			<div class="row row-cols-1 row-cols-sm-3 g-3">
 				<c:forEach var="user" items="${otherUsers}">
 	  				<div class="col">
-	    				<div class="card" style="background-color: #EFB9CB;">
+	    				<div class="card shadow" style="background-color: #EFB9CB;">
 					      	<div class="card-body">
 					        	<h5 class="card-title">${user.username}</h5>
 					        	<p class="card-text">
@@ -71,6 +71,8 @@
 					</div>
 				</c:forEach>
 			</div>
+			
+			<div class="fixed-bottom" id="polygon"></div>
 		</div>
 	</body>
 </html>
