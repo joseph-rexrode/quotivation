@@ -111,6 +111,12 @@
 				    <span class="visually-hidden">Next</span>
 				  </a>
 			</div>
+			
+			<div class="fixed-bottom d-flex justify-content-between align-items-center px-3">
+				<p>Project created by Joseph Rexrode</p>
+				<p>Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a></p>
+			</div>
+			
 			<div class="fixed-bottom" id="polygon2"></div>
 		</div>
 	</body>

@@ -113,6 +113,11 @@
 					</a>
 				</div>
 			</div>
+			
+			<div class="fixed-bottom d-flex flex-column justify-content-center align-items-center">
+				<p>Project created by Joseph Rexrode</p>
+				<p>Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a></p>
+			</div>
 		</div>
 	</body>
 </html>
