@@ -54,7 +54,7 @@
 			</div>
 			
 			<div class="w-50">
-				<form:form action="/inspiration/edit/${quote.id}" method="POST" modelAttribute="quote">
+				<form:form action="/inspiration/edit/${quoteId}" method="POST" modelAttribute="quote">
 					<input type="hidden" name="_method" value="put">
 					<div class="row mb-3">
 						<form:errors path="text" class="text-danger"/>
@@ -80,7 +80,7 @@
 					</div>
 				</form:form>
 				
-				<form action="/inspiration/delete/${quote.id}" method="POST">
+				<form action="/inspiration/delete/${quoteId}" method="POST">
 					<input type="hidden" name="_method" value="delete">
 					<div class="d-flex flex-row mt-5 justify-content-start">
 						<button type="submit" class="btn btn-danger">Delete Quote?</button> 

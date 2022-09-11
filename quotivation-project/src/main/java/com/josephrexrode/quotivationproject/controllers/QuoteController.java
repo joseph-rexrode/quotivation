@@ -110,10 +110,12 @@ public class QuoteController {
 		Quote q = qServ.findById(id);
 		User u = (User) session.getAttribute("loggedUser");
 		
+		// prevents manual GET requests from people who didn't create the quote
 		if (q.getCreator().getId() != u.getId()) {
 			return "redirect:/inspiration";
 		}
 		
+		model.addAttribute("quoteId", id);
 		model.addAttribute("quote", q);
 		
 		return "/quotes/edit.jsp";
@@ -127,6 +129,7 @@ public class QuoteController {
 			@PathVariable("quote_id") Long id) {
 		
 		if (result.hasErrors()) {
+			model.addAttribute("quoteId", id);
 			return "/quotes/edit.jsp";
 		}
 		
