@@ -53,8 +53,9 @@ public class Quote{
 			)
 	private List<User> users;
 	
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "creator_id", updatable = false)
+	@JoinColumn(name = "creator_id")
 	private User creator;
 	
 	public Quote() {}
