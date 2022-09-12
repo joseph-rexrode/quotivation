@@ -18,6 +18,7 @@
 	    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 	</head>
 	<body>
+		<div class="fixed-top" id="circle1"></div>
 	   	<div class="container">
 			<div class="my-4 d-flex justify-content-center">
 				<h1>Welcome to Quotivation.</h1>
@@ -99,5 +100,6 @@
 				</div>
 			</div>
 		</div>
+		<div class="fixed-bottom" id="circle2"></div>
 	</body>
 </html>
