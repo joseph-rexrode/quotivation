@@ -5,6 +5,8 @@
 ### Description
 
 Quotivation is a web application where you can collect quotes using the third party API <a href="https://zenquotes.io/" target="_blank">ZenQuotes</a>. You are also able to create your own quotes, update/delete those you have created, and other users can collect them as well!
+<br><br>
+This app is deployed in AWS and can be connected upon request for demo purposes.
 
 ### Key Features
 
